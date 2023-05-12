@@ -1,7 +1,8 @@
 from datetime import datetime
 from app import db
 
-class User(db.Model):
+class User(db.Model): #  класс User - модель базы данных. Он наследуется от db.Model, и использует
+                      # ORM (объектно-реляционное отображение) для взаимодействия с базой данных.
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
