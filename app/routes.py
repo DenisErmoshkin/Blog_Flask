@@ -2,7 +2,7 @@
 from flask import render_template, flash, redirect, url_for
 from app import app
 from app.forms import LoginForm
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
 from app import db
 from app.forms import RegistrationForm
@@ -11,8 +11,8 @@ from app.forms import RegistrationForm
 @app.route('/')
 @app.route('/index')
 def index():
-    user = {'username': 'DENIS'}
-    return render_template('index.html', title='Home', user=user)
+    #user = {'username': 'DENIS'}
+    return render_template('index.html', title='Home') #user=user)
 
 @app.route('/news')
 def news ():
@@ -66,3 +66,12 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
+@app.route('/user/<username>')
+@login_required
+def user(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    posts = [
+        {'author': user, 'body': 'Test post #1'},
+        {'author': user, 'body': 'Test post #2'}
+    ]
+    return render_template('user.html', user=user, posts=posts)
