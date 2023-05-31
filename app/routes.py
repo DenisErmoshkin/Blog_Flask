@@ -75,5 +75,6 @@ def user(username):
         {'author': user, 'body': 'Test post #2'},
         {'author': user, 'body': 'Test post #3'},
         {'author': user, 'body': 'Test post #4'}
+        {'author': user, 'body': 'Test post #5'}
     ]
     return render_template('user.html', user=user, posts=posts)
